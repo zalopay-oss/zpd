@@ -79,10 +79,7 @@ $ docker-compose up
 ```
 
 ## Test
-Phải chạy ZPD service trước như ở phần [Run](#run).
-
-**Test logic**
-Test các flow API mà ZPD cung cấp.
+Phải chạy ZPD service trước như ở phần [Run](#run). Sau đó test các flow API mà ZPD cung cấp như sau:
 
 ```sh
 # Đi đến thư mục cmd/client
@@ -92,51 +89,6 @@ $ cd ./tidb-layer/source/cmd/client
 $ go test -run TestClientExecuteCreateDB 
 ```
 - Có thể viết thêm các unit test ở file client_test.go như format của các unit test có sẵn.
-
-**Test benchmark**
-Test performance của ZPD service.
-
-- Chạy locust
-
-```sh
-# Đi đến thư mục locust
-$ cd ./tidb-layer/source/locust
-$ chmod +x run_locust.sh
-
-# Run locust
-./run_locust.sh
-```
-
-- Chạy chương trình benchmark
-```sh
-# Đi đến thư mục benchmark/run
-$ cd ./tidb-layer/source/benchmark/run
-
-# Cấp quyền cho file sh
-$ chmod +x ./run.sh
-
-# Chạy file sh
-./run.sh
-```
-
-- Trong thư mục run có file config.yaml dùng để config các tham số cho chương trình. Chúng ta cần lưu ý tham số:
-  - `ZPDService:` danh sách địa chỉ các node ZPD service.
-  - `dbName:` database để benchmark (cần tạo sẵn).
-  - `testname`: tên bài test. Các tên bài test gồm:
-    - **"connect_database"**: test connect đến database.
-  	- **"create_database"**: test khởi tạo database.
-  	- **"show_database"**: test show danh sách các databases có trong hệ thống.
-  	- **"drop_database"**: test xoá database.
-  	- **"create_table"**: test khởi tạo table.
-  	- **"show_table"**: test show danh sách các tables trong database.
-  	- **"drop_table"**: test drop table.
-  	- **"insert_row"**: test insert một row hoặc nhiều row.
-  	- **"select_row_star"**: test select * các row trong table.
-  	- **"select_row"**: test select row có mệnh đề where với trường hợp không có index.
-  	- **"select_row_index"**: test select một row có mệnh đề where với trường hợp có index.
-  	- **"delete_row_index"**: test delete một row có index.
-  	- **"delete_row"**: test delete một row không có index.
-- Có thể viết thêm các bài benchmark khác ở thư mục benchmark và định nghĩa thêm tên bài test.
 
 ## Document
 Các document khác về ZPD service có thể đọc ở:
