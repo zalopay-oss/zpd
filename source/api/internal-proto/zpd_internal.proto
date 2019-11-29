@@ -1,0 +1,118 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option go_package = "zpd_internal.proto";
+package zpd_internal.data.proto;
+
+import "common_internal.proto";
+
+message ColumnType {
+    int32 type = 1;
+    bool notnull = 2;
+    uint64 lenght = 3;
+}
+
+message Column {
+    uint64 ID = 1;
+    string name = 2;
+    ColumnType type = 3;
+}
+
+message IndexInfo {
+    string Type = 1;
+    string name = 2;
+    bool primary = 3;
+    bool unique = 4; 
+}
+
+message IndexColumn {
+    string name = 1;
+}
+
+message Index {
+    uint64 ID = 1;
+    IndexInfo info = 2;
+    repeated IndexColumn columns = 3;
+}
+
+message Table {
+    uint64 ID = 1;
+    string tbname = 2;
+    repeated Column columns = 3;
+    repeated Index indexes = 4;
+}
+
+message Schema {
+    uint64 ID = 1;
+    string dbname = 2;
+    repeated Table tables = 3;
+}
+
+message SchemaRequest {
+    string dbname = 1;
+}
+
+message SchemaResponse {
+    Schema schema = 1;
+    zpd_internal.common.proto.Status status = 2;
+}
+
+message CreateDatabaseRequest {
+    string dbname = 1;
+}
+
+message CreateDatabaseResponse{
+    zpd_internal.common.proto.Status status = 1;
+}
+
+message DropDatabaseRequest {
+    string dbname = 1;
+}
+
+message DropDatabaseResponse{
+    zpd_internal.common.proto.Status status = 1;
+}
+
+message GetDatabasesRequest{
+}
+
+message GetDatabasesResponse{
+    repeated string databases = 1;
+    zpd_internal.common.proto.Status status = 2;
+}
+
+message CreateTableRequest {
+    uint64 DBID = 1;
+    Table table = 2;
+}
+
+message CreateTableResponse{
+    zpd_internal.common.proto.Status status = 1;
+}
+
+message GetNameTablesRequest{
+    string dbname = 1;
+}
+
+message GetNameTablesResponse{
+    repeated string nametables = 1;
+    zpd_internal.common.proto.Status status = 2;
+}
+
+message DropTableRequest {
+    uint64 DBID = 1;
+    string tbname = 2;
+}
+
+message DropTableResponse{
+    zpd_internal.common.proto.Status status = 1;
+}
+
+message GetTableRequest{
+    uint64 DBID = 1;
+    string tbname = 2;
+}
+
+message GetTableResponse{
+    zpd_internal.common.proto.Status status = 1;
+    Table table = 2;
+}

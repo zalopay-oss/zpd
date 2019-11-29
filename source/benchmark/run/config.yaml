@@ -1,0 +1,14 @@
+ZPDService:
+  - host: "localhost:10001"
+  - host: "localhost:10002"
+  - host: "localhost:10003"
+bridge:
+  poolSize: 35
+  timeOut:  120
+log:
+  #PANNIC, FATAL, ERROR, WARN, INFO, DEBUG, TRACE
+  level: "INFO"
+  isLogFile: false
+  pathLogFile: "./logFile.log"
+dbName: "db_1"
+testname: "delete_row_index"

@@ -1,0 +1,63 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option go_package = "zpd.proto";
+package zpd.data.proto;
+
+import "common.proto";
+
+enum SQLType {
+    DEFAULT = 0;
+    SHOWDATABASE = 1;
+    SHOWTABLE = 2;
+    SELECT = 3;
+}
+
+message Databases {
+    repeated string databases = 1;
+}
+
+message NameTables {
+    repeated string nametables = 1;
+}
+
+message Item{
+    int32 type = 1;
+    bytes val = 2;
+    bool bool = 3;
+}
+
+message Row {
+    repeated Item items = 1;
+}
+
+message Rows {
+    repeated Row rows = 1;
+}
+
+message Ping {
+    int64 timestamp = 1;
+}
+
+message Pong{
+    int64 timestamp = 1;
+    string serviceName = 2;
+    zpd.common.proto.Status status = 3;
+}
+
+message ConnectionDBRequest {
+    string dbname = 1;
+}
+
+message CloseConnectionDBRequest {        
+}
+
+message StatementRequest{
+    SQLType type = 1;
+    string sql = 2;
+}
+
+message StatementResponse{
+    SQLType type = 1;
+    bytes data = 2;
+    zpd.common.proto.Status status = 3;
+}

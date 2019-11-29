@@ -1,0 +1,22 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option go_package = "zpd.proto";
+package zpd.api.proto;
+
+import "zpd.proto";
+import "common.proto";
+
+service ZPDService {
+    // ping-pong
+    rpc Ping (zpd.data.proto.Ping) returns (zpd.data.proto.Pong) {
+    }
+    //Connection db
+    rpc ConnectDatabase(zpd.data.proto.ConnectionDBRequest) returns (zpd.common.proto.MessageResponse){
+    }
+    //Close connection db
+    rpc CloseConnectionDatabase(zpd.data.proto.CloseConnectionDBRequest) returns (zpd.common.proto.MessageResponse){
+    }
+    //Statement api
+    rpc ExecuteStatement(zpd.data.proto.StatementRequest) returns (zpd.data.proto.StatementResponse){
+    }
+}

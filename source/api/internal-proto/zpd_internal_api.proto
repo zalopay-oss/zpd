@@ -1,0 +1,32 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option go_package = "zpd_internal.proto";
+package zpd_internal.api.proto;
+
+import "zpd_internal.proto";
+
+service ZPDInternalService {
+    rpc GetSchema(zpd_internal.data.proto.SchemaRequest) returns (zpd_internal.data.proto.SchemaResponse){
+    }
+
+    rpc CreateDatabase(zpd_internal.data.proto.CreateDatabaseRequest) returns (zpd_internal.data.proto.CreateDatabaseResponse){
+    }
+
+    rpc DropDatabase(zpd_internal.data.proto.DropDatabaseRequest) returns (zpd_internal.data.proto.DropDatabaseResponse){
+    }
+
+    rpc GetDatabases(zpd_internal.data.proto.GetDatabasesRequest) returns (zpd_internal.data.proto.GetDatabasesResponse){
+    }
+
+    rpc CreateTable(zpd_internal.data.proto.CreateTableRequest) returns (zpd_internal.data.proto.CreateTableResponse){
+    }
+
+    rpc GetNameTables(zpd_internal.data.proto.GetNameTablesRequest) returns (zpd_internal.data.proto.GetNameTablesResponse){
+    }
+
+    rpc DropTable(zpd_internal.data.proto.DropTableRequest) returns (zpd_internal.data.proto.DropTableResponse){
+    }
+
+    rpc GetTable(zpd_internal.data.proto.GetTableRequest) returns (zpd_internal.data.proto.GetTableResponse){
+    }
+}

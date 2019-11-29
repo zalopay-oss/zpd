@@ -1,0 +1,174 @@
+version: '2.1'
+
+services:
+  pd0:
+    image: pingcap/pd:latest
+    ports:
+      - "2379"
+    volumes:
+      - ./config/pd.toml:/pd.toml:ro
+      - ./data:/data
+      - ./logs:/logs
+    command:
+      - --name=pd0
+      - --client-urls=http://0.0.0.0:2379
+      - --peer-urls=http://0.0.0.0:2380
+      - --advertise-client-urls=http://pd0:2379
+      - --advertise-peer-urls=http://pd0:2380
+      - --initial-cluster=pd0=http://pd0:2380,pd1=http://pd1:2380,pd2=http://pd2:2380
+      - --data-dir=/data/pd0
+      - --config=/pd.toml
+      - --log-file=/logs/pd0.log
+    restart: on-failure
+  pd1:
+    image: pingcap/pd:latest
+    ports:
+      - "2379"
+    volumes:
+      - ./config/pd.toml:/pd.toml:ro
+      - ./data:/data
+      - ./logs:/logs
+    command:
+      - --name=pd1
+      - --client-urls=http://0.0.0.0:2379
+      - --peer-urls=http://0.0.0.0:2380
+      - --advertise-client-urls=http://pd1:2379
+      - --advertise-peer-urls=http://pd1:2380
+      - --initial-cluster=pd0=http://pd0:2380,pd1=http://pd1:2380,pd2=http://pd2:2380
+      - --data-dir=/data/pd1
+      - --config=/pd.toml
+      - --log-file=/logs/pd1.log
+    restart: on-failure
+  pd2:
+    image: pingcap/pd:latest
+    ports:
+      - "2379"
+    volumes:
+      - ./config/pd.toml:/pd.toml:ro
+      - ./data:/data
+      - ./logs:/logs
+    command:
+      - --name=pd2
+      - --client-urls=http://0.0.0.0:2379
+      - --peer-urls=http://0.0.0.0:2380
+      - --advertise-client-urls=http://pd2:2379
+      - --advertise-peer-urls=http://pd2:2380
+      - --initial-cluster=pd0=http://pd0:2380,pd1=http://pd1:2380,pd2=http://pd2:2380
+      - --data-dir=/data/pd2
+      - --config=/pd.toml
+      - --log-file=/logs/pd2.log
+    restart: on-failure
+  tikv0:
+    image: pingcap/tikv:latest
+    volumes:
+      - ./config/tikv.toml:/tikv.toml:ro
+      - ./data:/data
+      - ./logs:/logs
+    command:
+      - --addr=0.0.0.0:20160
+      - --advertise-addr=tikv0:20160
+      - --data-dir=/data/tikv0
+      - --pd=pd0:2379,pd1:2379,pd2:2379
+      - --config=/tikv.toml
+      - --log-file=/logs/tikv0.log
+    depends_on:
+      - "pd0"
+      - "pd1"
+      - "pd2"
+    restart: on-failure
+  tikv1:
+    image: pingcap/tikv:latest
+    volumes:
+      - ./config/tikv.toml:/tikv.toml:ro
+      - ./data:/data
+      - ./logs:/logs
+    command:
+      - --addr=0.0.0.0:20160
+      - --advertise-addr=tikv1:20160
+      - --data-dir=/data/tikv1
+      - --pd=pd0:2379,pd1:2379,pd2:2379
+      - --config=/tikv.toml
+      - --log-file=/logs/tikv1.log
+    depends_on:
+      - "pd0"
+      - "pd1"
+      - "pd2"
+    restart: on-failure
+  tikv2:
+    image: pingcap/tikv:latest
+    volumes:
+      - ./config/tikv.toml:/tikv.toml:ro
+      - ./data:/data
+      - ./logs:/logs
+    command:
+      - --addr=0.0.0.0:20160
+      - --advertise-addr=tikv2:20160
+      - --data-dir=/data/tikv2
+      - --pd=pd0:2379,pd1:2379,pd2:2379
+      - --config=/tikv.toml
+      - --log-file=/logs/tikv2.log
+    depends_on:
+      - "pd0"
+      - "pd1"
+      - "pd2"
+    restart: on-failure
+  consul:
+    container_name: consul
+    image: consul:latest
+    ports:
+        - "8500:8500"
+        - "8300:8300"
+    volumes:
+        - ./consul-config:/config
+        - ./consul-persistent:/data
+  zpd_1:
+    build:
+      context: $PWD/..
+      dockerfile: $PWD/../Dockerfile
+    container_name: zpd-service-1
+    volumes:
+      - $PWD/../:/zpd_service
+    working_dir: /zpd_service/cmd/server_node_1
+    image: zpd-service-1
+    command: go run main.go
+    ports:
+      - "10001:10001"
+    depends_on:
+      - "pd0"
+      - "pd1"
+      - "pd2"
+    restart: on-failure
+  zpd_2:
+    build:
+      context: $PWD/..
+      dockerfile: $PWD/../Dockerfile
+    container_name: zpd-service-2
+    volumes:
+      - $PWD/../:/zpd_service
+    working_dir: /zpd_service/cmd/server_node_2
+    image: zpd-service-2
+    command: go run main.go
+    ports:
+      - "10002:10002"
+    depends_on:
+      - "pd0"
+      - "pd1"
+      - "pd2"
+    restart: on-failure
+  zpd_3:
+    build:
+      context: $PWD/..
+      dockerfile: $PWD/../Dockerfile
+    container_name: zpd-service-3
+    volumes:
+      - $PWD/../:/zpd_service
+    working_dir: /zpd_service/cmd/server_node_3
+    image: zpd-service-3
+    command: go run main.go
+    ports:
+      - "10003:10003"
+    depends_on:
+      - "pd0"
+      - "pd1"
+      - "pd2"
+    restart: on-failure

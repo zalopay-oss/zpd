@@ -1,0 +1,7 @@
+GRPCPort: 10001
+GRPCHost: "localhost"
+log:
+  #PANNIC, FATAL, ERROR, WARN, INFO, DEBUG, TRACE
+  level: "INFO"
+  isLogFile: false
+  pathLogFile: "./logFile.log"

@@ -1,0 +1,14 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option go_package = "zpd_internal.proto";
+package zpd_internal.common.proto;
+
+message Status {
+  //code = 1 means success
+  int32 code = 1;
+  string error = 2;
+}
+
+message MessageResponse {
+  Status status = 1;
+}

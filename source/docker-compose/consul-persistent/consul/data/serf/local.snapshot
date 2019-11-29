@@ -1,0 +1,9 @@
+alive: 43d4c535c8f7 172.18.0.5:8301
+clock: 1
+event-clock: 1
+alive: 43d4c535c8f7 172.18.0.3:8301
+clock: 2
+event-clock: 2
+alive: 0a90f095d80f 172.18.0.5:8301
+clock: 3
+event-clock: 3
