@@ -1,10 +1,10 @@
-# ZPD service
+# ZPD
 
 <div align="center">
   <img src="./images/model_overview_zpd.png" width=500>
 </div>
 
-- [ZPD service](#zpd-service)
+- [ZPD](#zpd)
   - [Overview](#overview)
   - [Architecture](#architecture)
   - [Requirement](#requirement)
@@ -18,9 +18,9 @@
 
 ## Overview
 
-ZPD service is the probationary challenge of [AJPham](https://github.com/phamtai97) in ZaloPay. The ZPD service plays the role of receiving SQL requests from the client, then parse them into Abstract syntax tree (AST), map the SQL into a key-value form, and finally execute the data key-value down the storage tier. ZPD service combined with [Consul](https://www.consul.io/) as the leader voting feature among ZPD nodes in the cluster. The ZPD service storage section uses [TiKV](https://github.com/tikv/tikv) to store key-value and [PD](https://github.com/pingcap/pd) for management and compatibility. Cooperation with TiKV. Within the scope of this project, the ZPD service can only execute a few simple SQL statements.
+ZPD is the probationary challenge of [AJPham](https://github.com/phamtai97) in ZaloPay. The ZPD plays the role of receiving SQL requests from the client, then parse them into Abstract syntax tree (AST), map the SQL into a key-value form, and finally execute the data key-value down the storage tier. ZPD combined with [Consul](https://www.consul.io/) as the leader voting feature among ZPD nodes in the cluster. The ZPD storage section uses [TiKV](https://github.com/tikv/tikv) to store key-value and [PD](https://github.com/pingcap/pd) for management and compatibility. Cooperation with TiKV. Within the scope of this project, the ZPD can only execute a few simple SQL statements.
 
-ZPD service is implemented in Go language. Use [gRPC](https://github.com/grpc/grpc-go) to build protocols and services. ZPD operates with the following flow:
+ZPD is implemented in Go language. Use [gRPC](https://github.com/grpc/grpc-go) to build protocols and services. ZPD operates with the following flow:
 
 <div align="center">
   <img src="./images/flow-ZPD.png">
@@ -29,7 +29,7 @@ ZPD service is implemented in Go language. Use [gRPC](https://github.com/grpc/gr
 
 ## Architecture
 
-The architecture of the ZPD service:
+The architecture of the ZPD:
 
 <div align="center">
   <img src="./images/zpd_layer.png" width="250">
@@ -47,7 +47,7 @@ Including layers:
 - Storage:
   - TiKV client layer
 
-See the architecture of ZPD service [here](./docs/architecture.md).
+See the architecture of ZPD [here](./docs/architecture.md).
 
 ## Requirement
 - Golang version >= 1.12
@@ -74,7 +74,7 @@ $ git clone https://gitlab.zalopay.vn/zpx-core-team/tidb-internals.git
 
 ## Run
 
-ZPD service, PD, TiKV, Consul are all built with Docker compose. Just go to the docker-compose folder and run docker-compose up.
+ZPD, PD, TiKV, Consul are all built with Docker compose. Just go to the docker-compose folder and run docker-compose up.
 
 ```sh
 # go to the folder docker-compose
@@ -86,7 +86,7 @@ $ docker-compose up
 
 ## Test
 
-Must run ZPD service as the section above, then run tests of the APIs:
+Must run ZPD as the section above, then run tests of the APIs:
 
 ```sh
 # go to cmd/client
@@ -104,7 +104,7 @@ Read more document about ZPD:
 
 - [Specific description](./docs/specific-description.md)
 - [Sequence diagram](./docs/sequence-diagram.md)
-- [Architecture ZPD service](./docs/architecture.md)
+- [Architecture ZPD](./docs/architecture.md)
 - [Overview ZPD](docs/overview-ZPD.md)
 - [Handle DDL in ZPD](docs/handle-ddl.md)
 
