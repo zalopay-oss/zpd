@@ -18,7 +18,7 @@
 
 ## Overview
 
-ZPD is the probationary challenge of [AJPham](https://github.com/phamtai97) in ZaloPay. The ZPD plays the role of receiving SQL requests from the client, then parse them into Abstract syntax tree (AST), map the SQL into a key-value form, and finally execute the data key-value down the storage tier. ZPD combined with [Consul](https://www.consul.io/) as the leader voting feature among ZPD nodes in the cluster. The ZPD storage section uses [TiKV](https://github.com/tikv/tikv) to store key-value and [PD](https://github.com/pingcap/pd) for management and compatibility. Cooperation with TiKV. Within the scope of this project, the ZPD can only execute a few simple SQL statements.
+ZPD is the probationary challenge at ZaloPay. The ZPD plays the role of receiving SQL requests from the client, then parse them into Abstract syntax tree (AST), map the SQL into a key-value form, and finally execute the data key-value down the storage tier. ZPD combined with [Consul](https://www.consul.io/) as the leader voting feature among ZPD nodes in the cluster. The ZPD storage section uses [TiKV](https://github.com/tikv/tikv) to store key-value and [PD](https://github.com/pingcap/pd) for management and compatibility. Cooperation with TiKV. Within the scope of this project, the ZPD can only execute a few simple SQL statements.
 
 ZPD is implemented in Go language. Use [gRPC](https://github.com/grpc/grpc-go) to build protocols and services. ZPD operates with the following flow:
 
