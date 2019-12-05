@@ -15,6 +15,6 @@ script:
 
   - pwd
   - ls
-  - cd tidb-layer/source/docker-compose
+  - cd source/docker-compose
 
   - docker-compose build
