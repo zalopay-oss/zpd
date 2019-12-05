@@ -1,4 +1,4 @@
-language: golang
+language: ruby
 
 services:
   - docker
