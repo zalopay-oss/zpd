@@ -1,0 +1,15 @@
+language: golang
+
+services:
+  - docker
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+
+script:
+  - echo 'building docker-compose'
+
+  - cd ./tidb-layer/source/docker-compose
+
+  - docker-compose up
