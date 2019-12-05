@@ -4,12 +4,13 @@ services:
   - docker
 
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
-
+  - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  
 script:
   - echo 'building docker-compose'
 
   - cd ./tidb-layer/source/docker-compose
 
-  - docker-compose up
+  - docker-compose build
