@@ -12,9 +12,5 @@ before_install:
   
 script:
   - echo 'building docker-compose'
-
-  - pwd
-  - ls
   - cd source/docker-compose
-
   - docker-compose build
