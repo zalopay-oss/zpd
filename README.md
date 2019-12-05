@@ -1,5 +1,8 @@
 # ZPD
 
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![Coverage Status](https://img.shields.io/badge/coverage-90%25-green)
+
 <div align="center">
   <img src="./images/model_overview_zpd.png" width=500>
 </div>
