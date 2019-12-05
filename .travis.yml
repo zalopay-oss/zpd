@@ -14,7 +14,7 @@ script:
   - echo 'building docker-compose'
 
   - pwd
-  
-  - cd ./tidb-layer/source/docker-compose
+  - ls
+  - cd tidb-layer/source/docker-compose
 
   - docker-compose build
