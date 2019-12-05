@@ -52,7 +52,7 @@ See the architecture of ZPD [here](./docs/architecture.md).
 ## Requirement
 - Golang version >= 1.12
 - gRPC
-- Docker version >= 17.06 và Docker Compose 
+- Docker version >= 17.06 and Docker Compose
 - Locust
 
 ## Install
@@ -60,7 +60,7 @@ See the architecture of ZPD [here](./docs/architecture.md).
 - Install [gRPC](https://grpc.io/docs/quickstart/go/)
 - Install [Docker](https://docs.docker.com/get-started/)
 - Install [Locust](https://locust.io/)
-- Install TiKV và PD sử dụng [Docker Compose](https://tikv.org/docs/3.0/tasks/deploy/docker-compose/)
+- Install TiKV and PD using [Docker Compose](https://tikv.org/docs/3.0/tasks/deploy/docker-compose/)
 - Install Consul bằng [Docker](https://hub.docker.com/_/consul).
 
 ## Build
