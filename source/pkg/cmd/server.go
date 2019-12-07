@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"context"
+	"flag"
 	"os"
 	"strconv"
 	"zpd/configs"
@@ -75,6 +76,20 @@ func RunServer() error {
 	if err := initLogFile(config.Log); err != nil {
 		return err
 	}
+
+	GRPCHost := flag.String("host", "zpd-service-1", "host service")
+	GRPCPort := flag.Int("port", 10001, "port service")
+	ID := flag.String("id", "ZPD_1", "id service")
+	Name := flag.String("name", "SQLServer_1", "name service")
+
+	flag.Parse()
+
+	config.GRPCHost = *GRPCHost
+	config.GRPCPort = *GRPCPort
+	config.Consul.GRPCHost = *GRPCHost
+	config.Consul.GRPCPort = *GRPCPort
+	config.Consul.ID = *ID
+	config.Consul.Name = *Name
 
 	// new consul agent
 	consulAgent := consul_agent.NewConsulAgent(config.Consul)

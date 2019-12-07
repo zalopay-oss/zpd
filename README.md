@@ -111,8 +111,11 @@ Read more document about ZPD:
 - [Sequence diagram](./docs/sequence-diagram.md)
 - [Architecture ZPD](./docs/architecture.md)
 - [Overview ZPD](docs/overview-ZPD.md)
-- [Handle DDL in ZPD](docs/handle-ddl.md)
 
+Read blogs:
+- [SQL Planning: Parser & Optimizer](https://medium.com/zalopay-engineering/sql-planning-parser-optimizer-ee118a9705ed)
+- [SWIM: Protocol of friends](https://medium.com/zalopay-engineering/https-medium-com-zalopay-engineering-swim-giao-thuc-cua-nhung-nguoi-ban-8df88e68d816)
+- 
 ## Contribution
 
 This project was built by [AJPham](https://github.com/phamtai97) and [Alex Nguyen](https://github.com/quocanh1897) under the guidance from [Anh Le (Andy)](https://github.com/anhldbk).
