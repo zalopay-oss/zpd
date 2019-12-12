@@ -2,6 +2,9 @@
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Coverage Status](https://img.shields.io/badge/coverage-90%25-green)
+[![version](https://img.shields.io/badge/repo%20status-active-brightgreen)](https://github.com/zalopay-oss/zpd)
+[![version](https://img.shields.io/badge/contributors-2-blueviolet)](#tham-gia-phát-triển)
+[![version](https://img.shields.io/badge/open%20issues-0-red)](https://github.com/zalopay-oss/zpd/issues)
 
 <div align="center">
   <img src="./images/model_overview_zpd.png" width=500>
