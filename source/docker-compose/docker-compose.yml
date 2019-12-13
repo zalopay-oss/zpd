@@ -128,9 +128,9 @@ services:
     container_name: zpd-service-1
     volumes:
       - $PWD/../:/zpd_service
-    working_dir: /zpd_service/cmd/server_node_1
+    working_dir: /zpd_service/cmd/server
     image: zpd-service-1
-    command: go run main.go
+    command: go run main.go -host=zpd-service-1 -port=10001 -id=ZPD_1 -name=SQLServer_1
     ports:
       - "10001:10001"
     depends_on:
@@ -145,9 +145,9 @@ services:
     container_name: zpd-service-2
     volumes:
       - $PWD/../:/zpd_service
-    working_dir: /zpd_service/cmd/server_node_2
+    working_dir: /zpd_service/cmd/server
     image: zpd-service-2
-    command: go run main.go
+    command: go run main.go -host=zpd-service-2 -port=10002 -id=ZPD_2 -name=SQLServer_2
     ports:
       - "10002:10002"
     depends_on:
@@ -162,9 +162,9 @@ services:
     container_name: zpd-service-3
     volumes:
       - $PWD/../:/zpd_service
-    working_dir: /zpd_service/cmd/server_node_3
+    working_dir: /zpd_service/cmd/server
     image: zpd-service-3
-    command: go run main.go
+    command: go run main.go -host=zpd-service-3 -port=10003 -id=ZPD_3 -name=SQLServer_3
     ports:
       - "10003:10003"
     depends_on:
