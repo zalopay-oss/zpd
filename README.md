@@ -1,5 +1,11 @@
 # ZPD
 
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![Coverage Status](https://img.shields.io/badge/coverage-90%25-green)
+[![version](https://img.shields.io/badge/repo%20status-active-brightgreen)](https://github.com/zalopay-oss/zpd)
+[![version](https://img.shields.io/badge/contributors-2-blueviolet)](#tham-gia-phát-triển)
+[![version](https://img.shields.io/badge/open%20issues-0-red)](https://github.com/zalopay-oss/zpd/issues)
+
 <div align="center">
   <img src="./images/model_overview_zpd.png" width=500>
 </div>
@@ -113,9 +119,11 @@ Read more document about ZPD:
 - [Overview ZPD](docs/overview-ZPD.md)
 
 Read blogs:
+
 - [SQL Planning: Parser & Optimizer](https://medium.com/zalopay-engineering/sql-planning-parser-optimizer-ee118a9705ed)
 - [SWIM: Protocol of friends](https://medium.com/zalopay-engineering/https-medium-com-zalopay-engineering-swim-giao-thuc-cua-nhung-nguoi-ban-8df88e68d816)
-- 
+- [Building a SQL Database using key-value storage](https://medium.com/zalopay-engineering/xay-dung-sql-service-su-dung-tikv-5c5adb63c885)
+
 ## Contribution
 
 This project was built by [AJPham](https://github.com/phamtai97) and [Alex Nguyen](https://github.com/quocanh1897) under the guidance from [Anh Le (Andy)](https://github.com/anhldbk).
