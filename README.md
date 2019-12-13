@@ -112,7 +112,12 @@ Read more document about ZPD:
 - [Sequence diagram](./docs/sequence-diagram.md)
 - [Architecture ZPD](./docs/architecture.md)
 - [Overview ZPD](docs/overview-ZPD.md)
-- [Handle DDL in ZPD](docs/handle-ddl.md)
+
+Read blogs:
+
+- [SQL Planning: Parser & Optimizer](https://medium.com/zalopay-engineering/sql-planning-parser-optimizer-ee118a9705ed)
+- [SWIM: Protocol of friends](https://medium.com/zalopay-engineering/https-medium-com-zalopay-engineering-swim-giao-thuc-cua-nhung-nguoi-ban-8df88e68d816)
+- [Building a SQL Database using key-value storage](https://medium.com/zalopay-engineering/xay-dung-sql-service-su-dung-tikv-5c5adb63c885)
 
 ## Contribution
 
