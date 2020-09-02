@@ -21,6 +21,7 @@
   - [Document](#document)
   - [Contribution](#contribution)
   - [Acknowledgments](#acknowledgments)
+  - [License](#license)
 
 ## Overview
 
@@ -134,3 +135,7 @@ This project was built by [AJPham](https://github.com/phamtai97) and [Alex Nguye
   - [xwb1989/sqlparser](https://github.com/xwb1989/sqlparser): a SQL parser.
   - [Consul](https://github.com/hashicorp/consul): handle leader election.
   - [PingCap](https://github.com/pingcap): support PD and TiKV parts.
+
+## License
+
+See the [LICENSE](./LICENSE) file for license rights and limitations.
