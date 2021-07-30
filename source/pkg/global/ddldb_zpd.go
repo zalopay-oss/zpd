@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 	"sync"
+
 	"zpd/configs"
 	"zpd/pkg/bridge"
 	consul_agent "zpd/pkg/consul-agent"
@@ -196,9 +197,7 @@ func (ddl *DDLDBImpl) getSchemas() (map[string]*util.Schema, error) {
 				return nil, err
 			}
 
-			if &schema != nil {
-				schemas[schema.DBName] = &schema
-			}
+			schemas[schema.DBName] = &schema
 		}
 
 		currID = currID - uint64(count)
@@ -241,9 +240,7 @@ func (ddl *DDLDBImpl) getDatabases() ([]string, error) {
 				return nil, err
 			}
 
-			if &schema != nil {
-				schemas = append(schemas, schema.DBName)
-			}
+			schemas = append(schemas, schema.DBName)
 		}
 
 		currID = currID - uint64(count)
@@ -569,9 +566,7 @@ func (ddl *DDLDBImpl) getTablesOfDatabase(DBID uint64) (map[string]*util.Table, 
 				return nil, err
 			}
 
-			if &table != nil {
-				tables[table.TBName] = &table
-			}
+			tables[table.TBName] = &table
 		}
 
 		currID = currID - uint64(count)
@@ -614,9 +609,7 @@ func (ddl *DDLDBImpl) getTablesOfDatabaseToArray(DBID uint64) ([]*util.Table, er
 				return nil, err
 			}
 
-			if &table != nil {
-				tables = append(tables, &table)
-			}
+			tables = append(tables, &table)
 		}
 
 		currID = currID - uint64(count)
@@ -659,9 +652,7 @@ func (ddl *DDLDBImpl) getNameTablesOfDatabase(DBID uint64) ([]string, error) {
 				return nil, err
 			}
 
-			if &table != nil {
-				tables = append(tables, table.TBName)
-			}
+			tables = append(tables, table.TBName)
 		}
 
 		currID = currID - uint64(count)
@@ -675,14 +666,12 @@ func (ddl *DDLDBImpl) getNameTablesOfDatabase(DBID uint64) ([]string, error) {
 
 func (ddl *DDLDBImpl) getTable(DBID uint64, tbName string) (*util.Table, error) {
 	tbs, err := ddl.getTablesOfDatabase(DBID)
-
 	if err != nil {
 		return nil, err
 	}
 
-	tb := tbs[tbName]
-
-	if tb == nil {
+	tb, exists := tbs[tbName]
+	if !exists {
 		return nil, error_zpd.ErrTableNoExists
 	}
 
@@ -707,9 +696,7 @@ func (ddl *DDLDBImpl) getAllTablesOfService() (map[string]*util.Table, error) {
 			return nil, err
 		}
 
-		if &table != nil {
-			tables[table.TBName] = &table
-		}
+		tables[table.TBName] = &table
 	}
 
 	return tables, nil
