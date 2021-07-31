@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"sync"
 	"testing"
+
 	"zpd/configs"
 
 	zpd_proto "zpd/pkg/public-api"
@@ -39,6 +40,7 @@ func TestClientPing(t *testing.T) {
 func runClientConnect(t *testing.T, wg *sync.WaitGroup, cfg *configs.ZPDServiceConfig, dbName string) {
 	defer wg.Done()
 	client := NewClient(cfg)
+	defer client.Close()
 
 	msg, err := client.ConnectDatabase(dbName)
 	if err != nil {
@@ -49,12 +51,9 @@ func runClientConnect(t *testing.T, wg *sync.WaitGroup, cfg *configs.ZPDServiceC
 
 	msg, err = client.CloseConnectionDatabase()
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err.Error())
 	}
 	log.Info(msg)
-
-	client.Close()
 }
 
 // TestClientConnectSuccess1 connect success but does not exsits dbname
@@ -116,8 +115,8 @@ func runClientCreateDB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD, dbNa
 	sql := "Create database " + dbName + ";"
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_DEFAULT, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 	log.Info(res)
 }
@@ -153,28 +152,26 @@ func TestClientExecuteCreateDB(t *testing.T) {
 func runClientsCreateDB(t *testing.T, wg *sync.WaitGroup, cfg *configs.ZPDServiceConfig, dbName string) {
 	defer wg.Done()
 	client := NewClient(cfg)
+	defer client.Close()
 
 	_, err := client.ConnectDatabase("*")
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 
 	sql := "Create database " + dbName + ";"
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_DEFAULT, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 	log.Info(res)
 
 	_, err = client.CloseConnectionDatabase()
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
 	}
-
-	client.Close()
 }
 
 func TestClientsExecuteCreateDB(t *testing.T) {
@@ -196,8 +193,8 @@ func runClientUseDB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD, dbName 
 	sql := "Use " + dbName + ";"
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_DEFAULT, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 	log.Info(res)
 }
@@ -222,41 +219,36 @@ func TestClientExecuteUseDB(t *testing.T) {
 	wg.Wait()
 
 	_, err = client.CloseConnectionDatabase()
+	client.Close()
 	if err != nil {
 		t.Fatalf(err.Error())
-		client.Close()
 	}
-
-	client.Close()
 }
 
 func runClientsUseDB(t *testing.T, wg *sync.WaitGroup, cfg *configs.ZPDServiceConfig, dbName string) {
 	defer wg.Done()
 	client := NewClient(cfg)
+	defer client.Close()
 
 	_, err := client.ConnectDatabase("db_1")
 	if err != nil {
-		t.Fatalf(err.Error())
-
-		client.Close()
+		t.Log(err)
+		return
 	}
 
 	sql := "Use " + dbName + ";"
 
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_DEFAULT, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 	log.Info(res)
 
 	_, err = client.CloseConnectionDatabase()
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
 	}
-
-	client.Close()
 }
 
 func TestClientsExecuteUseDB(t *testing.T) {
@@ -278,8 +270,8 @@ func runClientDropDB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD, dbName
 	sql := "Drop database " + dbName + ";"
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_DEFAULT, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 	log.Info(res)
 }
@@ -323,8 +315,8 @@ func runClientShowDB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD) {
 	sql := "Show databases"
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_SHOWDATABASE, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 
 	if res.Status.Code == 0 {
@@ -335,8 +327,8 @@ func runClientShowDB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD) {
 	generate := util.NewGenerate()
 	data, err := generate.DecodeDataProto(res.Type, res.Data)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 
 	log.Info(data)
@@ -439,8 +431,8 @@ func runClientCreateTB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD, tbNa
 	sql := "CREATE TABLE " + tbName + " (`id` int(200) NOT NULL, `name` varchar (10), `gmail` varchar (20), PRIMARY KEY (`id`));"
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_DEFAULT, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 
 	if res.Status.Code == 0 {
@@ -449,8 +441,8 @@ func runClientCreateTB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD, tbNa
 	}
 
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 
 	log.Info(res)
@@ -492,8 +484,8 @@ func runClientShowTable(t *testing.T, wg *sync.WaitGroup, client *ClientZPD) {
 
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_SHOWTABLE, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 
 	if res.Status.Code == 0 {
@@ -504,8 +496,8 @@ func runClientShowTable(t *testing.T, wg *sync.WaitGroup, client *ClientZPD) {
 	generate := util.NewGenerate()
 	data, err := generate.DecodeDataProto(res.Type, res.Data)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 
 	log.Info(data.(*zpd_proto.NameTables).Nametables)
@@ -602,8 +594,8 @@ func runClientDropTB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD, tbName
 	sql := "Drop table " + tbName + ";"
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_DEFAULT, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 	log.Info(res)
 }
@@ -642,8 +634,8 @@ func runClientInserRowTB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD) {
 
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_DEFAULT, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 	log.Info(res)
 }
@@ -682,8 +674,8 @@ func runClientSelectRowTB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD) {
 
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_SELECT, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 
 	log.Info(res.Status)
@@ -691,8 +683,8 @@ func runClientSelectRowTB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD) {
 	generate := util.NewGenerate()
 	data, err := generate.DecodeDataProto(res.Type, res.Data)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 
 	log.Info(data.(*zpd_proto.Rows))
@@ -731,8 +723,8 @@ func runClientDeleteRowTB(t *testing.T, wg *sync.WaitGroup, client *ClientZPD) {
 
 	res, err := client.ExecuteStatement(zpd_proto.SQLType_DEFAULT, sql)
 	if err != nil {
-		t.Fatalf(err.Error())
-		client.Close()
+		t.Log(err)
+		return
 	}
 
 	log.Info(res.Status)
