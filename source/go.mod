@@ -7,7 +7,7 @@ require (
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/coreos/bbolt v1.3.3 // indirect
 	github.com/coreos/etcd v3.3.13+incompatible // indirect
-	github.com/gogo/protobuf v1.2.1
+	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.3.2
 	github.com/gorilla/mux v1.7.3 // indirect
 	github.com/hashicorp/consul/api v1.2.0
