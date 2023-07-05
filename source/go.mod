@@ -8,7 +8,7 @@ require (
 	github.com/coreos/bbolt v1.3.3 // indirect
 	github.com/coreos/etcd v3.3.13+incompatible // indirect
 	github.com/gogo/protobuf v1.3.2
-	github.com/golang/protobuf v1.3.2
+	github.com/golang/protobuf v1.5.3
 	github.com/gorilla/mux v1.7.3 // indirect
 	github.com/hashicorp/consul/api v1.2.0
 	github.com/json-iterator/go v1.1.6 // indirect
@@ -33,5 +33,6 @@ require (
 	github.com/zeromq/goczmq v4.1.0+incompatible // indirect
 	github.com/zeromq/gomq v0.0.0-20181008000130-95dc37dee5c4 // indirect
 	go.etcd.io/bbolt v1.3.3 // indirect
-	google.golang.org/grpc v1.22.1
+	google.golang.org/grpc v1.54.0
+	google.golang.org/grpc/examples v0.0.0-20230705174746-11feb0a9afd8 // indirect
 )
